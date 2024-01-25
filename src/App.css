@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  height: 100vw;
+  display: flex;
+  padding: 40px;
 }
 
 .App-logo {
@@ -28,11 +31,13 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App .accordion{
+  width: 100%;
+  margin-right: 20px;
+}
+
+.App .date-picker{
+  width: 100%;
+  margin-left: 20px;
+
 }
