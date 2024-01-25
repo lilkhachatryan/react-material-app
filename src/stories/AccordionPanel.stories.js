@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AccordionPanel from './AccordionPanel';
+import AccordionPanel from '../components/AccordionComponent/AccordionPanel';
 
 export default {
     title: 'Components/AccordionPanel',

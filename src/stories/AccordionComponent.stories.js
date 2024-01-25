@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AccordionComponent from './index';
+import AccordionComponent from '../components/AccordionComponent';
 
 export default {
     title: 'Components/AccordionComponent',
