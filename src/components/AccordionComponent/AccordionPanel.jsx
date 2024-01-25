@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
@@ -8,10 +8,26 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 
-const AccordionPanel = ({ summary, details, actions, defaultExpanded, disabled }) => {
+const AccordionPanel = ({ id, summary, details, actions, expanded, onChange, defaultExpanded, disabled }) => {
+    const [expandedState, setExpandedState] = useState(defaultExpanded);
+
+    const isExpanded = expanded !== undefined ? expanded : expandedState;
+
+    const handleChange = (event, isExpanded) => {
+        if (onChange) {
+            onChange(id)(event, isExpanded);
+        } else {
+            setExpandedState(isExpanded);
+        }
+    };
+
     return (
-        <Accordion disabled={disabled}  defaultExpanded={defaultExpanded}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
+        <Accordion expanded={isExpanded} onChange={handleChange} disabled={disabled}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`${id}-content`}
+                id={`${id}-header`}
+            >
                 <Typography>{summary}</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -31,6 +47,7 @@ const AccordionPanel = ({ summary, details, actions, defaultExpanded, disabled }
 };
 
 AccordionPanel.propTypes = {
+    id: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired,
     actions: PropTypes.arrayOf(
@@ -39,6 +56,8 @@ AccordionPanel.propTypes = {
             onClick: PropTypes.func,
         })
     ),
+    expanded: PropTypes.bool,
+    onChange: PropTypes.func,
     defaultExpanded: PropTypes.bool,
     disabled: PropTypes.bool,
 };
@@ -49,4 +68,4 @@ AccordionPanel.defaultProps = {
     disabled: false,
 };
 
-export default AccordionPanel
+export default AccordionPanel;

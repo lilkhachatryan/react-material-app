@@ -28,24 +28,34 @@ const panelsData = [
     },
 ];
 
-
 function App() {
     const [selectedDate, setSelectedDate] = useState(dayjs());
+    const [expandedPanel, setExpandedPanel] = useState(null);
+    const [controlled, setControlled] = useState(false);
 
     const handleDateChange = (newDate) => {
         setSelectedDate(newDate);
     };
 
+    const handleAccordionChange = (panelId) => (event, isExpanded) => {
+        if (controlled) {
+            setExpandedPanel(isExpanded ? panelId : null);
+        }
+    };
+
     return (
-            <div className="App">
-                <AccordionComponent
-                    panels={panelsData}
-                />
-                <DatePicker
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                />
-            </div>
+        <div className="App">
+            <AccordionComponent
+                panels={panelsData}
+                controlled={controlled}
+                expandedPanel={expandedPanel}
+                onChange={handleAccordionChange}
+            />
+            <DatePicker
+                value={selectedDate}
+                onChange={handleDateChange}
+            />
+        </div>
     );
 }
 

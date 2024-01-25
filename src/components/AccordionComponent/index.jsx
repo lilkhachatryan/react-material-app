@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AccordionPanel from "./AccordionPanel";
+import AccordionPanel from './AccordionPanel';
 
-const AccordionComponent = ({ panels }) => {
+const AccordionComponent = ({ panels, controlled, expandedPanel, onChange }) => {
     return (
         <div className="accordion">
-            {panels.map((panel, index) => (
-                <AccordionPanel key={index} {...panel} />
+            {panels.map(panel => (
+                <AccordionPanel
+                    key={panel.id}
+                    {...panel}
+                    expanded={controlled ? expandedPanel === panel.id : undefined}
+                    onChange={controlled ? onChange : undefined}
+                />
             ))}
         </div>
     );
@@ -28,6 +33,9 @@ AccordionComponent.propTypes = {
             disabled: PropTypes.bool,
         })
     ).isRequired,
+    controlled: PropTypes.bool,
+    expandedPanel: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 export default AccordionComponent;

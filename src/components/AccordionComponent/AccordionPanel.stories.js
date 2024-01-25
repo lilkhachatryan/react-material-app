@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AccordionPanel from './AccordionPanel';
 
 export default {
@@ -44,4 +44,27 @@ Expanded.args = {
 export const Disabled = Template.bind({});
 Disabled.args = {
     disabled: true,
+};
+
+// Controlled story
+export const Controlled = () => {
+    const [expanded, setExpanded] = useState(false);
+
+    const handleAccordionChange = (id) => (event, isExpanded) => {
+        setExpanded(isExpanded);
+    };
+
+    return (
+        <AccordionPanel
+            id="panel1"
+            summary="Controlled Accordion"
+            details="This is a controlled Accordion panel."
+            actions={[
+                { label: 'Action 1', onClick: () => console.log('Action 1 clicked') },
+                { label: 'Action 2', onClick: () => console.log('Action 2 clicked') },
+            ]}
+            expanded={expanded}
+            onChange={handleAccordionChange}
+        />
+    );
 };
